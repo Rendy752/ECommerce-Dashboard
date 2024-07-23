@@ -5,10 +5,10 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 def create_products_revenue_df():
-    products_df = pd.read_csv("../data/products.csv")
-    order_items_df = pd.read_csv("../data/order_items.csv")
-    orders_df = pd.read_csv("../data/orders.csv")
-    order_payments_df = pd.read_csv("../data/order_payments.csv")
+    products_df = pd.read_csv("products.csv")
+    order_items_df = pd.read_csv("order_items.csv")
+    orders_df = pd.read_csv("orders.csv")
+    order_payments_df = pd.read_csv("order_payments.csv")
     products_revenue_df = products_df.merge(order_items_df, on="product_id", how="left")
     products_revenue_df = products_revenue_df.merge(orders_df, on="order_id", how="left")
     products_revenue_df = products_revenue_df.merge(order_payments_df, on="order_id", how="left")
@@ -16,7 +16,7 @@ def create_products_revenue_df():
     return products_revenue_df
 
 def create_show_orders_late_df():
-    orders_df = pd.read_csv("../data/orders.csv")
+    orders_df = pd.read_csv("orders.csv")
     orders_df['order_purchase_timestamp'] = pd.to_datetime(orders_df['order_purchase_timestamp'])
     orders_2017_df = orders_df[orders_df["order_purchase_timestamp"].dt.year == 2017]
     orders_late_df = orders_2017_df[orders_2017_df["order_estimated_delivery_date"] < orders_2017_df["order_delivered_customer_date"]]
